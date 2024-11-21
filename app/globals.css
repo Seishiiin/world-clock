@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes shoot {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(200px) translateX(300px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: white;
+    border-radius: 50%;
+    animation: shoot linear infinite;
+    opacity: 0;
+}
+
+@keyframes starAnimation {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(50px) translateX(200px);
+        opacity: 0;
+    }
+}
+
+@keyframes daySky {
+    0% {
+        background: #f7e6a6;
+    }
+    50% {
+        background: #f9f4c1;
+    }
+    100% {
+        background: #f7e6a6;
+    }
+}
+
+.animate-daySky {
+    animation: daySky 10s ease-in-out infinite;
+}
