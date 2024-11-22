@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
     const [time, setTime] = useState(new Date());
-    const isDay = time.getHours() >= 10 && time.getHours() < 18;
+    const isDay = time.getHours() >= 6 && time.getHours() < 18;
     const [isDayTime, setIsDayTime] = useState(isDay);
     const [prevTime, setPrevTime] = useState(time);
 
