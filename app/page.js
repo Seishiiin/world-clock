@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
     const [time, setTime] = useState(new Date());
-    const [isDayTime, setIsDayTime] = useState(time.getHours() >= 6 && time.getHours() < 18);
+    const isDay = time.getHours() >= 10 && time.getHours() < 18;
+    const [isDayTime, setIsDayTime] = useState(isDay);
     const [prevTime, setPrevTime] = useState(time);
 
     useEffect(() => {
@@ -12,11 +13,11 @@ export default function Home() {
             const currentTime = new Date();
             setPrevTime(time);
             setTime(currentTime);
-            setIsDayTime(currentTime.getHours() >= 6 && currentTime.getHours() < 18);
+            setIsDayTime(isDay);
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [time]);
+    }, [isDay, time]);
 
     const formatTime = (num) => (num < 10 ? `0${num}` : num);
 
@@ -24,7 +25,7 @@ export default function Home() {
     const currentMonth = time.toLocaleString("fr-FR", { month: "long" }).toLowerCase();
     const currentYear = time.getFullYear();
 
-    const yearsRange = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i); // 5 ans avant et après l'année actuelle
+    const yearsRange = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
 
 
     useEffect(() => {
@@ -66,7 +67,7 @@ export default function Home() {
                 <div className="h-full flex justify-start items-center gap-10 z-10">
                     <div className="flex flex-col gap-1">
                         {["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"].map((day, index) => (
-                            <span key={index} className={`text-lg ${isDayTime ? "text-black" : "text-white"} ${currentDay === day ? "opacity-100 font-bold" : "opacity-[3%]"}`}>
+                            <span key={index} className={`text-lg ${isDayTime ? "text-black" : "text-white"} ${currentDay === day ? "opacity-100 font-black" : "opacity-[10%]"}`}>
                                 {day.charAt(0).toUpperCase() + day.slice(1)}
                             </span>
                         ))}
@@ -74,7 +75,7 @@ export default function Home() {
 
                     <div className="flex flex-col gap-1">
                         {["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"].map((month, index) => (
-                            <span key={index} className={`text-lg ${isDayTime ? "text-black" : "text-white"} ${currentMonth === month ? "opacity-100 font-bold" : "opacity-[3%]"}`}>
+                            <span key={index} className={`text-lg ${isDayTime ? "text-black" : "text-white"} ${currentMonth === month ? "opacity-100 font-black" : "opacity-[10%]"}`}>
                                 {month.charAt(0).toUpperCase() + month.slice(1)}
                             </span>
                         ))}
@@ -82,7 +83,7 @@ export default function Home() {
 
                     <div className="flex flex-col gap-1">
                         {yearsRange.map((year, index) => (
-                            <span key={index} className={`text-lg ${isDayTime ? "text-black" : "text-white"} ${year === currentYear ? "opacity-100 font-bold" : "opacity-[3%]"}`}>
+                            <span key={index} className={`text-lg ${isDayTime ? "text-black" : "text-white"} ${year === currentYear ? "opacity-100 font-black" : "opacity-[10%]"}`}>
                                 {year}
                             </span>
                         ))}
@@ -97,7 +98,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="absolute flex flex-col bottom-0 right-0 text-white font-medium text-sm text-right z-10">
+                <div className={`absolute flex flex-col bottom-0 right-0 ${isDayTime ? "text-black" : "text-white"} font-medium text-sm text-right z-10`}>
                     <span>Fuseau horaire: <span className={"opacity-60"}>{Intl.DateTimeFormat().resolvedOptions().timeZone}</span></span>
                 </div>
             </div>
