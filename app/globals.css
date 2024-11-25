@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @keyframes shoot {
     0% {
         transform: translateY(0) translateX(0) scale(1);
